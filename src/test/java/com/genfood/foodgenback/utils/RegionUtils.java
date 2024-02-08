@@ -24,9 +24,6 @@ public class RegionUtils {
   }
 
   public static Region updatedRegion3() {
-    return Region.builder()
-            .id(REGION3_ID)
-            .name(UPDATED_REGION3_NAME)
-            .build();
+    return Region.builder().id(REGION3_ID).name(UPDATED_REGION3_NAME).build();
   }
 }

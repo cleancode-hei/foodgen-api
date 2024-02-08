@@ -1,0 +1,57 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - preprod
+      - prod
+  workflow_dispatch:
+
+  workflow_call:
+
+jobs:
+  production-deploy:
+    if: ${{ github.ref_name == 'prod' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4.1.1
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: "17"
+          distribution: "corretto"
+          cache: maven
+
+      - name: Build docker image for food gen
+        run: docker build -t food-gen-api .
+
+      - name: Deploy to Render
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with:
+          service-id: ${{ secrets.PROD_RENDER_SERVICE_ID }}
+          api-key: ${{ secrets.PROD_RENDER_API_KEY }}
+
+  preproduction-deploy:
+    if: ${{ github.ref_name == 'preprod' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4.1.1
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: "17"
+          distribution: "corretto"
+          cache: maven
+
+      - name: Build docker image for food gen
+        run: docker build -t food-gen-api .
+
+      - name: Deploy to Render
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with:
+          service-id: ${{ secrets.PREPROD_RENDER_SERVICE_ID }}
+          api-key: ${{ secrets.PREPROD_RENDER_API_KEY }}

@@ -24,7 +24,7 @@ public class UserMapper {
 
   public com.genfood.foodgenback.repository.model.User toEntity(User dto) {
     return com.genfood.foodgenback.repository.model.User.builder()
-            .id(dto.getId())
+        .id(dto.getId())
         .lastname(dto.getLastname())
         .firstname(dto.getFirstname())
         .email(dto.getEmail())

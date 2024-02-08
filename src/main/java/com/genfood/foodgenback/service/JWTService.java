@@ -39,7 +39,7 @@ public class JWTService {
         .issuedAt(new Date(System.currentTimeMillis()))
         .expiration(new Date(System.currentTimeMillis() + TOKEN_VALIDITY_DURATION))
         .signWith(getSigningKey(), SignatureAlgorithm.HS256)
-            .compact();
+        .compact();
   }
 
   private boolean isTokenExpired(String token) {

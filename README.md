@@ -36,9 +36,9 @@ However you can trigger tests manually by executing this command :
 Once the test has been completed, `target/site/jacoco/index.html` contains all output.
 
 ## Definition of Done
-1. [ ] Authentication: sign up, sign in, logout
-2. [ ] Random food generation
-3. [ ] Recipe and meal posts 
-4. [ ] Recipe & meal search with filters
+1. [X] Authentication: sign up, sign in, logout
+2. [X] Random food generation
+3. [X] Recipe and meal posts 
+4. [X] Recipe & meal search with filters
 5. [ ] Recommendation
-6. [ ] Rating
+6. [X] Rating

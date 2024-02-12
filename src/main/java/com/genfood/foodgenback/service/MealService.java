@@ -96,4 +96,8 @@ public class MealService {
     }
     return meals;
   }
+
+  public List<Meal> findMealsByRegion(String regionName) {
+    return mealRepository.findMealsByRegions(regionName);
+  }
 }

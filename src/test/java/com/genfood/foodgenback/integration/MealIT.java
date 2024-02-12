@@ -96,7 +96,7 @@ public class MealIT extends FacadeIT {
     String token = userController.signUp(signUp4());
     request = new MockHttpServletRequest();
     request.addHeader(HttpHeaders.AUTHORIZATION, "Bearer " + token);
-    List<Meal> actual = mealController.getMeals(request);
+    List<Meal> actual = mealController.getMeals(request,null);
     Assertions.assertEquals(3, actual.size());
   }
 

@@ -1,7 +1,7 @@
 package com.genfood.foodgenback.endpoint.controller;
 
 import com.genfood.foodgenback.endpoint.rest.mapper.IngredientMapper;
-import com.genfood.foodgenback.endpoint.rest.model.Ingredients;
+import com.genfood.foodgenback.endpoint.rest.model.Ingredient;
 import com.genfood.foodgenback.service.IngredientService;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,9 +22,9 @@ public class IngredientController {
   private final IngredientMapper ingredientMapper;
 
   @GetMapping("/ingredients")
-  public List<Ingredients> getIngredients(
+  public List<Ingredient> getIngredients(
       @RequestParam("page") Integer page, @RequestParam("page_size") Integer pageSize) {
-    List<Ingredients> ingredients =
+    List<Ingredient> ingredients =
         ingredientService.getIngredients(page, pageSize).stream()
             .map(ingredientMapper::toDto)
             .collect(Collectors.toUnmodifiableList());
@@ -32,18 +32,18 @@ public class IngredientController {
   }
 
   @GetMapping("/ingredients/{id}")
-  public Ingredients getIngredientById(@PathVariable String id) {
-    Ingredients ingredients = ingredientMapper.toDto(ingredientService.getById(id));
-    return ingredients;
+  public Ingredient getIngredientById(@PathVariable String id) {
+    Ingredient ingredient = ingredientMapper.toDto(ingredientService.getById(id));
+    return ingredient;
   }
 
   @PutMapping("/ingredients")
-  public List<Ingredients> crupdateIngredients(@RequestBody List<Ingredients> ingredients) {
-    List<com.genfood.foodgenback.repository.model.Ingredients> toSave =
+  public List<Ingredient> crupdateIngredients(@RequestBody List<Ingredient> ingredients) {
+    List<com.genfood.foodgenback.repository.model.Ingredient> toSave =
         ingredients.stream()
             .map(ingredientMapper::toEntity)
             .collect(Collectors.toUnmodifiableList());
-    List<Ingredients> crupdated =
+    List<Ingredient> crupdated =
         ingredientService.saveIngredients(toSave).stream()
             .map(ingredientMapper::toDto)
             .collect(Collectors.toUnmodifiableList());

@@ -1,6 +1,6 @@
 package com.genfood.foodgenback.endpoint.rest.mapper;
 
-import com.genfood.foodgenback.endpoint.rest.model.Ingredients;
+import com.genfood.foodgenback.endpoint.rest.model.Ingredient;
 import com.genfood.foodgenback.endpoint.rest.model.RecipeIngredients;
 import com.genfood.foodgenback.repository.model.RecipeIngredient;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ public class RecipeIngredientMapper {
   private final IngredientMapper ingredientMapper;
 
   public RecipeIngredients toDto(List<RecipeIngredient> entity) {
-    List<Ingredients> ingredients = new ArrayList<>();
+    List<Ingredient> ingredients = new ArrayList<>();
     for (int i = 0; i < entity.size(); i++) {
       ingredients.add(ingredientMapper.toDto(entity.get(i).getIngredient()));
     }

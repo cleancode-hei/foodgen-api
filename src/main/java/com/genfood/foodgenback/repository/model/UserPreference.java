@@ -29,7 +29,7 @@ public class UserPreference {
 
   @ManyToOne
   @JoinColumn(name = "ingredient_id")
-  private Ingredients ingredient;
+  private Ingredient ingredient;
 
   @ManyToOne
   @JoinColumn(name = "user_id")

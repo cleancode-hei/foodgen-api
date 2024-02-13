@@ -14,7 +14,7 @@ public class AllergyMapper {
     return Allergy.builder()
         .id(entity.getId())
         .user(userMapper.toDto(entity.getUser()))
-        .ingredients(ingredientMapper.toDto(entity.getIngredient()))
+        .ingredient(ingredientMapper.toDto(entity.getIngredient()))
         .build();
   }
 }

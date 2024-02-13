@@ -21,7 +21,7 @@ import lombok.ToString;
 @ToString
 @Builder
 @EqualsAndHashCode
-public class Ingredients {
+public class Ingredient {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private String id;

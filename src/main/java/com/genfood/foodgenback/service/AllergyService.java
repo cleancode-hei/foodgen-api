@@ -4,7 +4,7 @@ import com.genfood.foodgenback.repository.AllergyRepository;
 import com.genfood.foodgenback.repository.IngredientRepository;
 import com.genfood.foodgenback.repository.UserRepository;
 import com.genfood.foodgenback.repository.model.Allergy;
-import com.genfood.foodgenback.repository.model.Ingredients;
+import com.genfood.foodgenback.repository.model.Ingredient;
 import com.genfood.foodgenback.repository.model.User;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -33,12 +33,12 @@ public class AllergyService {
     User user = service.whoami(request);
     List<Allergy> allergyList = new ArrayList<>();
     for (String allergy : allergies) {
-      List<Ingredients> ingredients =
+      List<Ingredient> ingredients =
           ingredientRepository.findAllByNameIsContainingIgnoreCase(allergy);
       if (ingredients.size() == 0) {
         continue;
       }
-      for (Ingredients ingredient : ingredients) {
+      for (Ingredient ingredient : ingredients) {
         Allergy entity = Allergy.builder().user(user).ingredient(ingredient).build();
         allergyRepository.save(entity);
         allergyList.add(entity);

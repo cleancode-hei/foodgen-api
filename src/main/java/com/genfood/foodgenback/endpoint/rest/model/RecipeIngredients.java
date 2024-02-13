@@ -12,5 +12,5 @@ import lombok.NoArgsConstructor;
 @Builder
 public class RecipeIngredients {
   private Recipe recipe;
-  private List<Ingredients> ingredients;
+  private List<Ingredient> ingredients;
 }

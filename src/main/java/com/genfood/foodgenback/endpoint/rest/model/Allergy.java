@@ -12,5 +12,5 @@ import lombok.NoArgsConstructor;
 public class Allergy {
   private String id;
   private User user;
-  private Ingredients ingredients;
+  private Ingredient ingredient;
 }

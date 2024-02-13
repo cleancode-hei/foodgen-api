@@ -1,7 +1,7 @@
 package com.genfood.foodgenback.service;
 
 import com.genfood.foodgenback.endpoint.rest.mapper.RecipeIngredientMapper;
-import com.genfood.foodgenback.endpoint.rest.model.Ingredients;
+import com.genfood.foodgenback.endpoint.rest.model.Ingredient;
 import com.genfood.foodgenback.repository.MealRepository;
 import com.genfood.foodgenback.repository.model.Allergy;
 import com.genfood.foodgenback.repository.model.Meal;
@@ -37,7 +37,7 @@ public class MealService {
 
   public Meal getMealByPreferences(User user, Meal meal) {
     List<UserPreference> preferences = userPreferencesService.getPreferencesByUser(user);
-    List<Ingredients> mealIngredients =
+    List<Ingredient> mealIngredients =
         recipeIngredientMapper
             .toDto(recipeIngredientService.getAllByRecipeId(meal.getRecipe().getId()))
             .getIngredients();
@@ -53,7 +53,7 @@ public class MealService {
 
   public Meal getMealWithoutAllergy(User user, Meal meal) {
     List<Allergy> allergies = allergyService.findAllergyByUserId(user.getId());
-    List<Ingredients> mealIngredients =
+    List<Ingredient> mealIngredients =
         recipeIngredientMapper
             .toDto(recipeIngredientService.getAllByRecipeId(meal.getRecipe().getId()))
             .getIngredients();

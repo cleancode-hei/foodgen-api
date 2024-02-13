@@ -1,7 +1,7 @@
 package com.genfood.foodgenback.service;
 
 import com.genfood.foodgenback.repository.IngredientRepository;
-import com.genfood.foodgenback.repository.model.Ingredients;
+import com.genfood.foodgenback.repository.model.Ingredient;
 import com.genfood.foodgenback.repository.validator.IngredientValidator;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -15,16 +15,16 @@ public class IngredientService {
   private final IngredientRepository ingredientRepository;
   private final IngredientValidator ingredientValidator;
 
-  public List<Ingredients> getIngredients(Integer page, Integer pageSize) {
+  public List<Ingredient> getIngredients(Integer page, Integer pageSize) {
     Pageable pageable = PageRequest.of(page, pageSize);
     return ingredientRepository.findAll(pageable).toList();
   }
 
-  public Ingredients getById(String id) {
+  public Ingredient getById(String id) {
     return ingredientRepository.findById(id).orElseThrow();
   }
 
-  public List<Ingredients> saveIngredients(List<Ingredients> ingredientsList) {
+  public List<Ingredient> saveIngredients(List<Ingredient> ingredientsList) {
     ingredientValidator.accept(ingredientsList);
     return ingredientRepository.saveAll(ingredientsList);
   }

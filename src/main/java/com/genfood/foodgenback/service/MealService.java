@@ -3,8 +3,10 @@ package com.genfood.foodgenback.service;
 import com.genfood.foodgenback.endpoint.rest.mapper.RecipeIngredientMapper;
 import com.genfood.foodgenback.endpoint.rest.model.Ingredients;
 import com.genfood.foodgenback.repository.MealRepository;
+import com.genfood.foodgenback.repository.RegionRepository;
 import com.genfood.foodgenback.repository.model.Allergy;
 import com.genfood.foodgenback.repository.model.Meal;
+import com.genfood.foodgenback.repository.model.Region;
 import com.genfood.foodgenback.repository.model.User;
 import com.genfood.foodgenback.repository.model.UserPreference;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Service;
 public class MealService {
 
   private final MealRepository mealRepository;
+  private final RegionRepository regionRepository;
   private final RecipeIngredientService recipeIngredientService;
   private final AuthService service;
   private final AllergyService allergyService;
@@ -98,6 +101,7 @@ public class MealService {
   }
 
   public List<Meal> findMealsByRegion(String regionName) {
-    return mealRepository.findMealsByRegions(regionName);
+    Region region = regionRepository.findByName(regionName).orElse(null);
+    return mealRepository.findByRegion(region);
   }
 }

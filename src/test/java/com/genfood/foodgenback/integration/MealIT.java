@@ -1,9 +1,7 @@
 package com.genfood.foodgenback.integration;
 
-import static com.genfood.foodgenback.utils.MealUtils.MEAL1_ID;
-import static com.genfood.foodgenback.utils.MealUtils.meal1;
-import static com.genfood.foodgenback.utils.MealUtils.meal8;
-import static com.genfood.foodgenback.utils.MealUtils.meal9;
+import static com.genfood.foodgenback.utils.MealUtils.*;
+import static com.genfood.foodgenback.utils.RegionUtils.REGION1_NAME;
 import static com.genfood.foodgenback.utils.UserUtils.signUp4;
 import com.genfood.foodgenback.conf.FacadeIT;
 import com.genfood.foodgenback.endpoint.controller.MealController;
@@ -15,6 +13,7 @@ import com.genfood.foodgenback.endpoint.rest.model.Meal;
 import com.genfood.foodgenback.repository.AllergyRepository;
 import com.genfood.foodgenback.repository.IngredientRepository;
 import com.genfood.foodgenback.repository.MealRepository;
+
 import com.genfood.foodgenback.repository.RecipeIngredientRepository;
 import com.genfood.foodgenback.repository.UserPreferencesRepository;
 import com.genfood.foodgenback.repository.UserRepository;
@@ -28,6 +27,7 @@ import com.genfood.foodgenback.service.RecipeIngredientService;
 import com.genfood.foodgenback.service.UserDetailsServiceImpl;
 import com.genfood.foodgenback.service.UserPreferencesService;
 import com.genfood.foodgenback.service.UserService;
+import com.genfood.foodgenback.repository.RegionRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -69,6 +69,7 @@ public class MealIT extends FacadeIT {
   @Autowired JWTService jwtService;
   @Autowired
   RecipeIngredientRepository recipeIngredientRepository;
+  @Autowired RegionRepository regionRepository;
 
   @BeforeEach
   void setUp() {
@@ -83,6 +84,7 @@ public class MealIT extends FacadeIT {
     mealService =
         new MealService(
             mealRepository,
+            regionRepository,
             recipeIngredientService,
             authService,
             allergyService,
@@ -98,6 +100,14 @@ public class MealIT extends FacadeIT {
     request.addHeader(HttpHeaders.AUTHORIZATION, "Bearer " + token);
     List<Meal> actual = mealController.getMeals(request,null);
     Assertions.assertEquals(3, actual.size());
+  }
+
+  @Test
+  void read_meals_by_regions() {
+    List<Meal> actual = mealController.getMeals(request,REGION1_NAME);
+    Assertions.assertTrue(actual.contains(meal1()));
+    Assertions.assertTrue(actual.contains(meal6()));
+    Assertions.assertTrue(actual.contains(meal7()));
   }
 
   @Test

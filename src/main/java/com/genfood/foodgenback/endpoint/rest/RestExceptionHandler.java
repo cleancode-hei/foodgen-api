@@ -21,12 +21,7 @@ import org.springframework.web.client.HttpServerErrorException;
 public class RestExceptionHandler {
 
   @ExceptionHandler(
-      value = {
-        BadRequestException.class,
-        DuplicateKeyException.class,
-        JwtException.class,
-        BadCredentialsException.class
-      })
+      value = {BadRequestException.class, DuplicateKeyException.class, JwtException.class})
   ResponseEntity<Exception> handleBadRequest(java.lang.Exception e) {
     log.info(e.getClass().getSimpleName(), e);
     Exception restException =
@@ -37,7 +32,12 @@ public class RestExceptionHandler {
     return new ResponseEntity<>(restException, HttpStatus.BAD_REQUEST);
   }
 
-  @ExceptionHandler(value = {AccessDeniedException.class, ForbiddenException.class})
+  @ExceptionHandler(
+      value = {
+        AccessDeniedException.class,
+        ForbiddenException.class,
+        BadCredentialsException.class
+      })
   ResponseEntity<Exception> handleForbidden(java.lang.Exception e) {
     log.info(e.getClass().getSimpleName(), e);
     Exception restException =

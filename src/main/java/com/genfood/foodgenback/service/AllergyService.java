@@ -2,7 +2,6 @@ package com.genfood.foodgenback.service;
 
 import com.genfood.foodgenback.repository.AllergyRepository;
 import com.genfood.foodgenback.repository.IngredientRepository;
-import com.genfood.foodgenback.repository.UserRepository;
 import com.genfood.foodgenback.repository.model.Allergy;
 import com.genfood.foodgenback.repository.model.Ingredient;
 import com.genfood.foodgenback.repository.model.User;
@@ -16,21 +15,20 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class AllergyService {
   private final AllergyRepository allergyRepository;
-  private final UserRepository userRepository;
-  private final AuthService service;
+  private final UserService userService;
   private final IngredientRepository ingredientRepository;
 
   public List<Allergy> getAllergies() {
     return allergyRepository.findAll();
   }
 
-  public List<Allergy> findAllergyByUserId(String userId) {
-    User user = userRepository.findById(userId).orElse(null);
-    return allergyRepository.findByUser(user);
+  public List<Allergy> findAllergiesByUserId(String userId) {
+    User user = userService.getUserById(userId);
+    return allergyRepository.findAllByUser(user);
   }
 
   public List<Allergy> crUpdateAllergies(HttpServletRequest request, List<String> allergies) {
-    User user = service.whoami(request);
+    User user = userService.whoami(request);
     List<Allergy> allergyList = new ArrayList<>();
     for (String allergy : allergies) {
       List<Ingredient> ingredients =

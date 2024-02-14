@@ -8,15 +8,10 @@ import static com.genfood.foodgenback.utils.IngredientUtils.updatedIg3;
 
 import com.genfood.foodgenback.conf.FacadeIT;
 import com.genfood.foodgenback.endpoint.controller.IngredientController;
-import com.genfood.foodgenback.endpoint.rest.mapper.IngredientMapper;
 import com.genfood.foodgenback.endpoint.rest.model.Ingredient;
-import com.genfood.foodgenback.repository.IngredientRepository;
-import com.genfood.foodgenback.repository.validator.IngredientValidator;
-import com.genfood.foodgenback.service.IngredientService;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -26,18 +21,8 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 public class IngredientIT extends FacadeIT {
   public static final int PAGE = 0;
   public static final int PAGE_SIZE = 10;
-  IngredientController ingredientController;
-  IngredientService ingredientService;
-  @Autowired IngredientMapper ingredientMapper;
-  @Autowired IngredientValidator ingredientValidator;
-  @Autowired IngredientRepository ingredientRepository;
-
-  @BeforeEach
-  void setUp() {
-    ingredientService = new IngredientService(ingredientRepository, ingredientValidator);
-    ingredientController = new IngredientController(ingredientService, ingredientMapper);
-  }
-
+  @Autowired
+  private IngredientController ingredientController;
   @Test
   void read_ingredients() {
     List<Ingredient> actual = ingredientController.getIngredients(PAGE, PAGE_SIZE);

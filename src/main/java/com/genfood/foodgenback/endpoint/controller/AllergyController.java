@@ -21,21 +21,21 @@ public class AllergyController {
   private final AllergyService allergyService;
   private final AllergyMapper allergyMapper;
 
-  @GetMapping("/allergy")
+  @GetMapping("/allergies")
   public List<Allergy> getAllergies() {
     return allergyService.getAllergies().stream()
         .map(allergyMapper::toDto)
         .collect(Collectors.toUnmodifiableList());
   }
 
-  @GetMapping("/allergy/{user_id}")
+  @GetMapping("/allergies/{user_id}")
   public List<Allergy> findAllergyByUserId(@PathVariable(name = "user_id") String userId) {
-    return allergyService.findAllergyByUserId(userId).stream()
+    return allergyService.findAllergiesByUserId(userId).stream()
         .map(allergyMapper::toDto)
         .collect(Collectors.toUnmodifiableList());
   }
 
-  @PutMapping("/allergy")
+  @PutMapping("/allergies")
   public List<Allergy> crupdateAllergies(
       HttpServletRequest request, @RequestBody List<String> allergies) {
     return allergyService.crUpdateAllergies(request, allergies).stream()

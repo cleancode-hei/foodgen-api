@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AllergyRepository extends JpaRepository<Allergy, String> {
-  List<Allergy> findByUser(User user);
+  List<Allergy> findAllByUser(User user);
 }

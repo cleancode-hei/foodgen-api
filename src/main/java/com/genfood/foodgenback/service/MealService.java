@@ -21,10 +21,10 @@ public class MealService {
 
   private final MealRepository mealRepository;
   private final RecipeIngredientService recipeIngredientService;
-  private final AuthService service;
+  private final UserService userService;
   private final AllergyService allergyService;
   private final RecipeIngredientMapper recipeIngredientMapper;
-  private final UserPreferencesService userPreferencesService;
+  private final UserPreferenceService userPreferenceService;
 
   public Meal getMealById(String id) {
     return mealRepository.findById(id).get();
@@ -36,7 +36,7 @@ public class MealService {
   }
 
   public Meal getMealByPreferences(User user, Meal meal) {
-    List<UserPreference> preferences = userPreferencesService.getPreferencesByUser(user);
+    List<UserPreference> preferences = userPreferenceService.getPreferencesByUser(user);
     List<Ingredient> mealIngredients =
         recipeIngredientMapper
             .toDto(recipeIngredientService.getAllByRecipeId(meal.getRecipe().getId()))
@@ -52,7 +52,7 @@ public class MealService {
   }
 
   public Meal getMealWithoutAllergy(User user, Meal meal) {
-    List<Allergy> allergies = allergyService.findAllergyByUserId(user.getId());
+    List<Allergy> allergies = allergyService.findAllergiesByUserId(user.getId());
     List<Ingredient> mealIngredients =
         recipeIngredientMapper
             .toDto(recipeIngredientService.getAllByRecipeId(meal.getRecipe().getId()))
@@ -68,9 +68,9 @@ public class MealService {
   }
 
   public List<Meal> getRandomMeals(HttpServletRequest request) {
-    User user = service.whoami(request);
-    List<UserPreference> preferences = userPreferencesService.getPreferencesByUser(user);
-    List<Allergy> allergies = allergyService.findAllergyByUserId(user.getId());
+    User user = userService.whoami(request);
+    List<UserPreference> preferences = userPreferenceService.getPreferencesByUser(user);
+    List<Allergy> allergies = allergyService.findAllergiesByUserId(user.getId());
     List<Meal> meals = new ArrayList<>();
     if (preferences.size() == 0 && allergies.size() == 0) {
       meals.add(mealRepository.findMealRandomly());

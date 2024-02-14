@@ -1,6 +1,5 @@
 package com.genfood.foodgenback.repository.validator;
 
-import com.genfood.foodgenback.repository.IngredientRepository;
 import com.genfood.foodgenback.repository.model.Ingredient;
 import com.genfood.foodgenback.repository.model.exception.BadRequestException;
 import java.util.HashSet;
@@ -14,8 +13,6 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class IngredientValidator implements Consumer<Ingredient> {
-  private final IngredientRepository repository;
-
   public void accept(List<Ingredient> ingredients) {
     ingredients.forEach(this::accept);
   }

@@ -2,6 +2,7 @@ package com.genfood.foodgenback.service;
 
 import com.genfood.foodgenback.repository.IngredientRepository;
 import com.genfood.foodgenback.repository.model.Ingredient;
+import com.genfood.foodgenback.repository.model.exception.NotFoundException;
 import com.genfood.foodgenback.repository.validator.IngredientValidator;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,13 @@ public class IngredientService {
   }
 
   public Ingredient getById(String id) {
-    return ingredientRepository.findById(id).orElseThrow();
+    return ingredientRepository
+        .findById(id)
+        .orElseThrow(() -> new NotFoundException("Ingredient of id: " + id + " not found."));
+  }
+
+  public Ingredient getIngredientByName(String name) {
+    return ingredientRepository.findByName(name);
   }
 
   public List<Ingredient> saveIngredients(List<Ingredient> ingredientsList) {

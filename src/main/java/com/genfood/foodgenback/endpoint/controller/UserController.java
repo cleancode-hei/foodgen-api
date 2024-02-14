@@ -4,7 +4,6 @@ import com.genfood.foodgenback.endpoint.rest.mapper.UserMapper;
 import com.genfood.foodgenback.endpoint.rest.model.Auth;
 import com.genfood.foodgenback.endpoint.rest.model.SignUp;
 import com.genfood.foodgenback.endpoint.rest.model.User;
-import com.genfood.foodgenback.service.AuthService;
 import com.genfood.foodgenback.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -25,8 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*")
 public class UserController {
   private final UserMapper mapper;
-  private final UserService userService;
-  private final AuthService service;
+  private final UserService service;
 
   @PostMapping("/signup")
   public String signUp(@RequestBody SignUp auth) {
@@ -42,14 +40,14 @@ public class UserController {
   public List<User> crupdateUsers(@RequestBody List<User> toCrupdate) {
     List<com.genfood.foodgenback.repository.model.User> entities =
         toCrupdate.stream().map(mapper::toEntity).collect(Collectors.toUnmodifiableList());
-    return userService.crupdateUsers(entities).stream()
+    return service.crupdateUsers(entities).stream()
         .map(mapper::toDto)
         .collect(Collectors.toUnmodifiableList());
   }
 
   @GetMapping("/{username}")
   public User getByUserName(@PathVariable String username) {
-    return mapper.toDto(userService.getUserByUsername(username));
+    return mapper.toDto(service.getUserByUsername(username));
   }
 
   @GetMapping("/whoami")

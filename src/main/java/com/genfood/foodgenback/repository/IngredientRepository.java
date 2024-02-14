@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IngredientRepository extends JpaRepository<Ingredient, String> {
-  boolean existsByName(String name);
-
   List<Ingredient> findAllByNameIsContainingIgnoreCase(String name);
+
+  Ingredient findByName(String name);
 }

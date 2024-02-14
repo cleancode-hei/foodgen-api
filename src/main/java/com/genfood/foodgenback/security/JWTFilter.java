@@ -20,7 +20,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @AllArgsConstructor
 public class JWTFilter extends OncePerRequestFilter {
   private final JWTService jwtService;
-  private final UserDetailsServiceImpl userDetailsServiceImpl;
+  private UserDetailsServiceImpl userDetailsServiceImpl;
   private final String AUTHORIZATION_HEADER = "Authorization";
   private final String BEARER_PREFIX = "Bearer ";
 

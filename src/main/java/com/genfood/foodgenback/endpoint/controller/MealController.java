@@ -22,14 +22,9 @@ public class MealController {
 
   @GetMapping("/meals")
   public List<Meal> getMeals(HttpServletRequest request, @RequestParam(name = "region") String region) {
-    List<Meal> meals = (region != null) ?
-            mealService.findMealsByRegion(region).stream()
-                    .map(mealMapper::toDto)
-                    .collect(Collectors.toUnmodifiableList()) :
-            mealService.getRandomMeals(request).stream()
+    return mealService.findMealsByCriteria(request,region).stream()
                     .map(mealMapper::toDto)
                     .collect(Collectors.toUnmodifiableList());
-    return meals;
   }
 
   @GetMapping("/mealsByRating")

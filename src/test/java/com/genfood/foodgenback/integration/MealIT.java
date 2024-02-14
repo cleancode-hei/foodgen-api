@@ -17,6 +17,7 @@ import com.genfood.foodgenback.repository.MealRepository;
 import com.genfood.foodgenback.repository.RecipeIngredientRepository;
 import com.genfood.foodgenback.repository.UserPreferencesRepository;
 import com.genfood.foodgenback.repository.UserRepository;
+import com.genfood.foodgenback.repository.dao.MealsDao;
 import com.genfood.foodgenback.repository.validator.MailValidator;
 import java.util.List;
 import com.genfood.foodgenback.service.AllergyService;
@@ -70,7 +71,7 @@ public class MealIT extends FacadeIT {
   @Autowired
   RecipeIngredientRepository recipeIngredientRepository;
   @Autowired RegionRepository regionRepository;
-
+  @Autowired MealsDao mealsDao;
   @BeforeEach
   void setUp() {
     recipeIngredientService = new RecipeIngredientService(recipeIngredientRepository);
@@ -89,7 +90,8 @@ public class MealIT extends FacadeIT {
             authService,
             allergyService,
             recipeIngredientMapper,
-            userPreferencesService);
+            userPreferencesService,
+            mealsDao);
     mealController = new MealController(mealService, mealMapper);
   }
 
@@ -108,6 +110,8 @@ public class MealIT extends FacadeIT {
     Assertions.assertTrue(actual.contains(meal1()));
     Assertions.assertTrue(actual.contains(meal6()));
     Assertions.assertTrue(actual.contains(meal7()));
+    Assertions.assertFalse(actual.contains(meal2()));
+    Assertions.assertFalse(actual.contains(meal3()));
   }
 
   @Test

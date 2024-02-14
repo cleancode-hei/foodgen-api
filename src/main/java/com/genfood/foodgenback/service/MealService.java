@@ -4,6 +4,7 @@ import com.genfood.foodgenback.endpoint.rest.mapper.RecipeIngredientMapper;
 import com.genfood.foodgenback.endpoint.rest.model.Ingredients;
 import com.genfood.foodgenback.repository.MealRepository;
 import com.genfood.foodgenback.repository.RegionRepository;
+import com.genfood.foodgenback.repository.dao.MealsDao;
 import com.genfood.foodgenback.repository.model.Allergy;
 import com.genfood.foodgenback.repository.model.Meal;
 import com.genfood.foodgenback.repository.model.Region;
@@ -28,6 +29,7 @@ public class MealService {
   private final AllergyService allergyService;
   private final RecipeIngredientMapper recipeIngredientMapper;
   private final UserPreferencesService userPreferencesService;
+  private final MealsDao mealsDao;
 
   public Meal getMealById(String id) {
     return mealRepository.findById(id).get();
@@ -100,8 +102,9 @@ public class MealService {
     return meals;
   }
 
-  public List<Meal> findMealsByRegion(String regionName) {
+  public List<Meal> findMealsByCriteria(HttpServletRequest request, String regionName) {
     Region region = regionRepository.findByName(regionName).orElse(null);
-    return mealRepository.findByRegion(region);
+    return (region == null) ? getRandomMeals(request):
+            mealsDao.findByCriteria(region);
   }
 }

@@ -1,6 +1,13 @@
 package com.genfood.foodgenback.integration;
 
-import static com.genfood.foodgenback.utils.MealUtils.*;
+import static com.genfood.foodgenback.utils.MealUtils.MEAL1_ID;
+import static com.genfood.foodgenback.utils.MealUtils.meal1;
+import static com.genfood.foodgenback.utils.MealUtils.meal2;
+import static com.genfood.foodgenback.utils.MealUtils.meal3;
+import static com.genfood.foodgenback.utils.MealUtils.meal6;
+import static com.genfood.foodgenback.utils.MealUtils.meal7;
+import static com.genfood.foodgenback.utils.MealUtils.meal8;
+import static com.genfood.foodgenback.utils.MealUtils.meal9;
 import static com.genfood.foodgenback.utils.RegionUtils.REGION1_NAME;
 import static com.genfood.foodgenback.utils.UserUtils.signUp4;
 

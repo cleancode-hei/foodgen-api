@@ -399,7 +399,7 @@ paths:
         '500':
           $ref: '#/components/responses/500'
   '/meals/download/{id}':
-    post:
+    put:
       tags:
         - Meal
       summary: Update the download of a meal
@@ -412,7 +412,7 @@ paths:
             type: string
       responses:
         '200':
-          description: "Meal's downloea updated"
+          description: "Meal's download updated"
         '400':
           $ref: '#/components/responses/400'
         '403':

@@ -3,6 +3,7 @@ package com.genfood.foodgenback.integration;
 import static com.genfood.foodgenback.utils.MealUtils.*;
 import static com.genfood.foodgenback.utils.RegionUtils.REGION1_NAME;
 import static com.genfood.foodgenback.utils.UserUtils.signUp4;
+
 import com.genfood.foodgenback.conf.FacadeIT;
 import com.genfood.foodgenback.endpoint.controller.MealController;
 import com.genfood.foodgenback.endpoint.controller.UserController;
@@ -13,13 +14,12 @@ import com.genfood.foodgenback.endpoint.rest.model.Meal;
 import com.genfood.foodgenback.repository.AllergyRepository;
 import com.genfood.foodgenback.repository.IngredientRepository;
 import com.genfood.foodgenback.repository.MealRepository;
-
 import com.genfood.foodgenback.repository.RecipeIngredientRepository;
+import com.genfood.foodgenback.repository.RegionRepository;
 import com.genfood.foodgenback.repository.UserPreferencesRepository;
 import com.genfood.foodgenback.repository.UserRepository;
 import com.genfood.foodgenback.repository.dao.MealsDao;
 import com.genfood.foodgenback.repository.validator.MailValidator;
-import java.util.List;
 import com.genfood.foodgenback.service.AllergyService;
 import com.genfood.foodgenback.service.AuthService;
 import com.genfood.foodgenback.service.JWTService;
@@ -28,7 +28,7 @@ import com.genfood.foodgenback.service.RecipeIngredientService;
 import com.genfood.foodgenback.service.UserDetailsServiceImpl;
 import com.genfood.foodgenback.service.UserPreferencesService;
 import com.genfood.foodgenback.service.UserService;
-import com.genfood.foodgenback.repository.RegionRepository;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -68,10 +68,10 @@ public class MealIT extends FacadeIT {
   @Autowired MailValidator mailValidator;
   @Autowired PasswordEncoder passwordEncoder;
   @Autowired JWTService jwtService;
-  @Autowired
-  RecipeIngredientRepository recipeIngredientRepository;
+  @Autowired RecipeIngredientRepository recipeIngredientRepository;
   @Autowired RegionRepository regionRepository;
   @Autowired MealsDao mealsDao;
+
   @BeforeEach
   void setUp() {
     recipeIngredientService = new RecipeIngredientService(recipeIngredientRepository);
@@ -100,13 +100,13 @@ public class MealIT extends FacadeIT {
     String token = userController.signUp(signUp4());
     request = new MockHttpServletRequest();
     request.addHeader(HttpHeaders.AUTHORIZATION, "Bearer " + token);
-    List<Meal> actual = mealController.getMeals(request,null);
+    List<Meal> actual = mealController.getMeals(request, null);
     Assertions.assertEquals(3, actual.size());
   }
 
   @Test
   void read_meals_by_regions() {
-    List<Meal> actual = mealController.getMeals(request,REGION1_NAME);
+    List<Meal> actual = mealController.getMeals(request, REGION1_NAME);
     Assertions.assertTrue(actual.contains(meal1()));
     Assertions.assertTrue(actual.contains(meal6()));
     Assertions.assertTrue(actual.contains(meal7()));

@@ -21,10 +21,11 @@ public class MealController {
   private final MealMapper mealMapper;
 
   @GetMapping("/meals")
-  public List<Meal> getMeals(HttpServletRequest request, @RequestParam(name = "region") String region) {
-    return mealService.findMealsByCriteria(request,region).stream()
-                    .map(mealMapper::toDto)
-                    .collect(Collectors.toUnmodifiableList());
+  public List<Meal> getMeals(
+      HttpServletRequest request, @RequestParam(name = "region") String region) {
+    return mealService.findMealsByCriteria(request, region).stream()
+        .map(mealMapper::toDto)
+        .collect(Collectors.toUnmodifiableList());
   }
 
   @GetMapping("/mealsByRating")

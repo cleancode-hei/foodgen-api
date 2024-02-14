@@ -104,7 +104,6 @@ public class MealService {
 
   public List<Meal> findMealsByCriteria(HttpServletRequest request, String regionName) {
     Region region = regionRepository.findByName(regionName).orElse(null);
-    return (region == null) ? getRandomMeals(request):
-            mealsDao.findByCriteria(region);
+    return (region == null) ? getRandomMeals(request) : mealsDao.findByCriteria(region);
   }
 }

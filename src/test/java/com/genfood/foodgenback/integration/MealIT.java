@@ -24,11 +24,10 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 public class MealIT extends FacadeIT {
   public static final int PAGE = 0;
   public static final int PAGE_SIZE = 5;
-  @Autowired
-  private MealController mealController;
-  @Autowired
-  private UserController userController;
+  @Autowired private MealController mealController;
+  @Autowired private UserController userController;
   MockHttpServletRequest request;
+
   @Test
   void read_meals() {
     String token = userController.signUp(signUp4());

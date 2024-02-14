@@ -21,8 +21,8 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 public class IngredientIT extends FacadeIT {
   public static final int PAGE = 0;
   public static final int PAGE_SIZE = 10;
-  @Autowired
-  private IngredientController ingredientController;
+  @Autowired private IngredientController ingredientController;
+
   @Test
   void read_ingredients() {
     List<Ingredient> actual = ingredientController.getIngredients(PAGE, PAGE_SIZE);

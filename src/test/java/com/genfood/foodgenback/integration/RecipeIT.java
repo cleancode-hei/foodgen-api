@@ -23,8 +23,7 @@ public class RecipeIT extends FacadeIT {
 
   public static final int PAGE = 0;
   public static final int PAGE_SIZE = 10;
-  @Autowired
-  private RecipeController controller;
+  @Autowired private RecipeController controller;
 
   @Test
   void read_recipes() {

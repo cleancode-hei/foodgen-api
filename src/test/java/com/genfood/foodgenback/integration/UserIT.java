@@ -11,7 +11,6 @@ import com.genfood.foodgenback.conf.FacadeIT;
 import com.genfood.foodgenback.endpoint.controller.UserController;
 import com.genfood.foodgenback.endpoint.rest.model.User;
 import java.util.List;
-
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -21,8 +20,8 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @Testcontainers
 @Slf4j
 public class UserIT extends FacadeIT {
-  @Autowired
-  private UserController controller;
+  @Autowired private UserController controller;
+
   @Test
   void read_user_by_id() {
     User actual = controller.getByUserName(USER1_USERNAME);

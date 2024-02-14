@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @RestController
 @AllArgsConstructor
@@ -23,11 +24,22 @@ public class MealController {
 
   @GetMapping("/meals")
   public List<Meal> getMeals(HttpServletRequest request) {
-    List<Meal> meals =
-        mealService.getRandomMeals(request).stream()
-            .map(mealMapper::toDto)
-            .collect(Collectors.toUnmodifiableList());
-    return meals;
+    return mealService.getRandomMeals(request).stream().map(mealMapper::toDto).toList();
+  }
+
+  @PostMapping("/meals/download/{id}")
+  public void downloadMeal(@PathVariable String id) {
+    mealService.updateMealDownloadNumber(id);
+  }
+
+  @GetMapping("/recommendedMeals")
+  public List<Meal> getMealsByPreferences(
+      HttpServletRequest request,
+      @RequestParam("page") Integer page,
+      @RequestParam("page_size") Integer pageSize) {
+    return mealService.getMealByPreferences(request, page, pageSize).stream()
+        .map(mealMapper::toDto)
+        .toList();
   }
 
   @GetMapping("/mealsByCriteria")
@@ -43,11 +55,9 @@ public class MealController {
   }
 
   @GetMapping("/mealsByRating")
-  public List<Meal> getMealsOrdered(
+  public List<Meal> getMealsOrderedByDownload(
       @RequestParam("page") Integer page, @RequestParam("page_size") Integer pageSize) {
-    List<Meal> meals =
-        mealService.getMealByRating(page, pageSize).stream().map(mealMapper::toDto).toList();
-    return meals;
+    return mealService.getMealByDownload(page, pageSize).stream().map(mealMapper::toDto).toList();
   }
 
   @GetMapping("/meal/{id}")

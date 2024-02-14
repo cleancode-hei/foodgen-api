@@ -48,6 +48,8 @@ public class MealIT extends FacadeIT {
   @Autowired private MealService mealService;
   @Autowired private UserController userController;
   @Autowired private UserDetailsServiceImpl userDetailsService;
+  @Autowired
+  JWTService jwtService;
   MockHttpServletRequest request;
 
   @Autowired AllergyRepository allergyRepository;
@@ -57,7 +59,6 @@ public class MealIT extends FacadeIT {
 
   @Autowired IngredientRepository ingredientRepository;
   @Autowired MailValidator mailValidator;
-  @Autowired JWTService jwtService;
 
   @Test
   void read_meals() {

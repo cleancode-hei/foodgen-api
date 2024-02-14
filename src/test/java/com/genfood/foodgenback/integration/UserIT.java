@@ -53,6 +53,7 @@ public class UserIT extends FacadeIT {
   @Test
   void sign_in() {
     Assertions.assertEquals(String.class, controller.signIn(auth4()).getClass());
+    Assertions.assertEquals(String.class, controller.signIn(auth4()).getClass());
   }
 
   @Test

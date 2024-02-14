@@ -57,6 +57,17 @@ public class MealUtils {
         .build();
   }
 
+  public static Meal updatedDownloadMeal1() {
+    return Meal.builder()
+        .id(MEAL1_ID)
+        .name(MEAL1_NAME)
+        .image(null)
+        .download(MEAL1_DOWNLOAD + 1)
+        .region(region1())
+        .recipe(recipe1())
+        .build();
+  }
+
   public static Meal meal2() {
     return Meal.builder()
         .id(MEAL2_ID)

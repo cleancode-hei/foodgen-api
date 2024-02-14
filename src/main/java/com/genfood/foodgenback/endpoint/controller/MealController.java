@@ -5,11 +5,11 @@ import com.genfood.foodgenback.endpoint.rest.model.Meal;
 import com.genfood.foodgenback.service.MealService;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,19 +22,28 @@ public class MealController {
 
   @GetMapping("/meals")
   public List<Meal> getMeals(HttpServletRequest request) {
-    List<Meal> meals =
-        mealService.getRandomMeals(request).stream()
-            .map(mealMapper::toDto)
-            .collect(Collectors.toUnmodifiableList());
-    return meals;
+    return mealService.getRandomMeals(request).stream().map(mealMapper::toDto).toList();
+  }
+
+  @PostMapping("/meals/download/{id}")
+  public void downloadMeal(@PathVariable String id) {
+    mealService.updateMealDownloadNumber(id);
+  }
+
+  @GetMapping("/recommendedMeals")
+  public List<Meal> getMealsByPreferences(
+      HttpServletRequest request,
+      @RequestParam("page") Integer page,
+      @RequestParam("page_size") Integer pageSize) {
+    return mealService.getMealByPreferences(request, page, pageSize).stream()
+        .map(mealMapper::toDto)
+        .toList();
   }
 
   @GetMapping("/mealsByRating")
-  public List<Meal> getMealsOrdered(
+  public List<Meal> getMealsOrderedByDownload(
       @RequestParam("page") Integer page, @RequestParam("page_size") Integer pageSize) {
-    List<Meal> meals =
-        mealService.getMealByRating(page, pageSize).stream().map(mealMapper::toDto).toList();
-    return meals;
+    return mealService.getMealByDownload(page, pageSize).stream().map(mealMapper::toDto).toList();
   }
 
   @GetMapping("/meal/{id}")

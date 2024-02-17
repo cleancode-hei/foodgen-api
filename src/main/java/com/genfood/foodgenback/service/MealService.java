@@ -2,6 +2,7 @@ package com.genfood.foodgenback.service;
 
 import com.genfood.foodgenback.endpoint.rest.mapper.RecipeIngredientMapper;
 import com.genfood.foodgenback.endpoint.rest.model.Ingredient;
+import com.genfood.foodgenback.repository.JDBCQueries;
 import com.genfood.foodgenback.repository.MealRepository;
 import com.genfood.foodgenback.repository.model.Allergy;
 import com.genfood.foodgenback.repository.model.Meal;
@@ -10,6 +11,7 @@ import com.genfood.foodgenback.repository.model.UserPreference;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +27,7 @@ public class MealService {
   private final AllergyService allergyService;
   private final RecipeIngredientMapper recipeIngredientMapper;
   private final UserPreferenceService userPreferenceService;
+  private final JDBCQueries jdbcQueries;
 
   public Meal getMealById(String id) {
     return mealRepository.findById(id).get();
@@ -95,5 +98,15 @@ public class MealService {
       }
     }
     return meals;
+  }
+
+  public List<Meal> getMealsByCriteria(
+      String regionName, List<String> ingredientsNames, HttpServletRequest request) {
+    User user = userService.whoami(request);
+    List<String> allergiesNames =
+        allergyService.findAllergiesByUserId(user.getId()).stream()
+            .map((allergy -> allergy.getIngredient().getName()))
+            .collect(Collectors.toUnmodifiableList());
+    return jdbcQueries.findAllMealsByCriterias(regionName, allergiesNames, ingredientsNames);
   }
 }

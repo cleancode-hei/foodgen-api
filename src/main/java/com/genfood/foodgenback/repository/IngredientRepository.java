@@ -9,5 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface IngredientRepository extends JpaRepository<Ingredient, String> {
   List<Ingredient> findAllByNameIsContainingIgnoreCase(String name);
 
+  List<Ingredient> findIngredientsByNameIn(List<String> names);
+
   Ingredient findByName(String name);
 }

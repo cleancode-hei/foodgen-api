@@ -15,7 +15,7 @@ public class MealMapper {
         .id(entity.getId())
         .name(entity.getName())
         .download(entity.getDownload())
-        .image(entity.getImage() == null ? entity.getImage() : null)
+        .image(entity.getImage() != null ? entity.getImage() : null)
         .recipe(recipeMapper.toDto(entity.getRecipe()))
         .region(regionMapper.toDto(entity.getRegion()))
         .build();

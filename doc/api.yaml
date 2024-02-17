@@ -432,6 +432,44 @@ paths:
           $ref: '#/components/responses/404'
         '500':
           $ref: '#/components/responses/500'
+  '/mealsByCriteria':
+    get:
+      tags:
+        - Meal
+      summary: Get a list of meals by criteria
+      operationId: getMealsByCriteria
+      parameters:
+        - name: region_name
+          in: query
+          required: false
+          schema:
+            type: string
+            example: "France"
+        - name: ingredients
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+              example: "tomato"
+      responses:
+        '200':
+          description: return a list of  meals
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Meal'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
   '/meal/{id}':
     get:
       tags:

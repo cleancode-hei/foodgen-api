@@ -11,7 +11,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @DirtiesContext
 public class FacadeIT {
-  static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:latest");
+  static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:13.2");
 
   @BeforeAll
   static void beforeAll() {

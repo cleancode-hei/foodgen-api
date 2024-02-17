@@ -63,4 +63,12 @@ public class UserIT extends FacadeIT {
     request.addHeader(HttpHeaders.AUTHORIZATION, "Bearer " + token);
     Assertions.assertEquals(Role.ADMIN, controller.whoami(request).getRole());
   }
+
+  @Test
+  void sign_in_as_admin() {
+    String token = controller.signIn(authAdmin1());
+    request = new MockHttpServletRequest();
+    request.addHeader(HttpHeaders.AUTHORIZATION, "Bearer " + token);
+    Assertions.assertEquals(Role.ADMIN, controller.whoami(request).getRole());
+  }
 }

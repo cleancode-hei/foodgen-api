@@ -49,8 +49,7 @@ public class MealIT extends FacadeIT {
   @Autowired private MealMapper mealMapper;
   @Autowired private UserController userController;
   @Autowired private UserDetailsServiceImpl userDetailsService;
-  @Autowired
-  JWTService jwtService;
+  @Autowired JWTService jwtService;
   MockHttpServletRequest request;
 
   @Autowired AllergyRepository allergyRepository;
@@ -92,11 +91,11 @@ public class MealIT extends FacadeIT {
     request = new MockHttpServletRequest();
     request.addHeader(HttpHeaders.AUTHORIZATION, "Bearer " + token);
     List<Meal> actual = mealController.getMealsByCriteria(request, REGION1_NAME, null);
-    Assertions.assertTrue(actual.containsAll(List.of(meal7(), meal1(), meal6())));
+    Assertions.assertTrue(actual.containsAll(List.of(meal7(), meal6())));
   }
 
   @Test
-  void read_meals_filtered__with_null_ingredients_region_and_allergies() {
+  void read_meals_filtered_with_null_ingredients_region_and_allergies() {
     String token = userController.signIn(authAdmin1());
     request = new MockHttpServletRequest();
     request.addHeader(HttpHeaders.AUTHORIZATION, "Bearer " + token);

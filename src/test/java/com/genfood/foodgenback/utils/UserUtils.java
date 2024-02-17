@@ -48,6 +48,10 @@ public class UserUtils {
     return Auth.builder().email(USER2_EMAIL).password(USER2_PASSWORD).build();
   }
 
+  public static Auth auth1() {
+    return Auth.builder().email(USER1_EMAIL).password(USER1_PASSWORD).build();
+  }
+
   public static Auth authAdmin1() {
     return Auth.builder().email(ADMIN1_EMAIL).password(ADMIN1_PASSWORD).build();
   }

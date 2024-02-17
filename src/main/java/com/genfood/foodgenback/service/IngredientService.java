@@ -2,13 +2,13 @@ package com.genfood.foodgenback.service;
 
 import com.genfood.foodgenback.repository.IngredientRepository;
 import com.genfood.foodgenback.repository.model.Ingredient;
+import com.genfood.foodgenback.repository.model.exception.NotFoundException;
 import com.genfood.foodgenback.repository.validator.IngredientValidator;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @AllArgsConstructor

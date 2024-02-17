@@ -2,6 +2,7 @@ package com.genfood.foodgenback.service;
 
 import com.genfood.foodgenback.repository.RegionRepository;
 import com.genfood.foodgenback.repository.model.Region;
+import com.genfood.foodgenback.repository.model.exception.NotFoundException;
 import com.genfood.foodgenback.repository.validator.RegionValidator;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -26,7 +27,7 @@ public class RegionService {
   }
 
   public Region getRegionById(String id) {
-    return repository.findById(id).orElseThrow();
+    return repository.findById(id).orElseThrow(() -> new NotFoundException("Region name with id: "+id+" not found"));
   }
 
   public void removeById(String id) {

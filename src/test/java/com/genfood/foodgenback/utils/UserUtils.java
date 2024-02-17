@@ -56,11 +56,23 @@ public class UserUtils {
     return Auth.builder().email(ADMIN1_EMAIL).password(ADMIN1_PASSWORD).build();
   }
 
+  public static SignUp signUp1() {
+    return SignUp.builder()
+            .username(USER1_USERNAME)
+            .email(USER1_EMAIL)
+            .password(USER1_PASSWORD)
+            .allergies(null)
+            .preferences(null)
+            .build();
+  }
+
   public static SignUp signUp4() {
     return SignUp.builder()
         .username(USER4_USERNAME)
         .email(USER4_EMAIL)
         .password(USER4_PASSWORD)
+            .allergies(null)
+            .preferences(null)
         .build();
   }
 
@@ -75,6 +87,7 @@ public class UserUtils {
         .role(Role.valueOf(USER1_ROLE))
         .build();
   }
+
 
   public static User user2() {
     return User.builder()

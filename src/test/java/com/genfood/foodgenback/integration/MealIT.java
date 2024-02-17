@@ -1,5 +1,12 @@
 package com.genfood.foodgenback.integration;
 
+import static com.genfood.foodgenback.utils.MealUtils.MEAL1_ID;
+import static com.genfood.foodgenback.utils.MealUtils.meal1;
+import static com.genfood.foodgenback.utils.MealUtils.meal8;
+import static com.genfood.foodgenback.utils.MealUtils.meal9;
+import static com.genfood.foodgenback.utils.MealUtils.updatedDownloadMeal1;
+import static com.genfood.foodgenback.utils.UserUtils.auth1;
+import static com.genfood.foodgenback.utils.UserUtils.signUp4;
 import com.genfood.foodgenback.conf.FacadeIT;
 import com.genfood.foodgenback.endpoint.controller.MealController;
 import com.genfood.foodgenback.endpoint.controller.UserController;
@@ -15,6 +22,7 @@ import com.genfood.foodgenback.service.JWTService;
 import com.genfood.foodgenback.service.MealService;
 import com.genfood.foodgenback.service.UserDetailsServiceImpl;
 import com.genfood.foodgenback.utils.IngredientUtils;
+import com.genfood.foodgenback.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -26,18 +34,11 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.genfood.foodgenback.utils.MealUtils.MEAL1_ID;
-import static com.genfood.foodgenback.utils.MealUtils.meal1;
 import static com.genfood.foodgenback.utils.MealUtils.meal6;
 import static com.genfood.foodgenback.utils.MealUtils.meal7;
-import static com.genfood.foodgenback.utils.MealUtils.meal8;
-import static com.genfood.foodgenback.utils.MealUtils.meal9;
-import static com.genfood.foodgenback.utils.MealUtils.updatedDownloadMeal1;
 import static com.genfood.foodgenback.utils.RegionUtils.REGION1_NAME;
-import static com.genfood.foodgenback.utils.UserUtils.auth1;
 import static com.genfood.foodgenback.utils.UserUtils.auth2;
 import static com.genfood.foodgenback.utils.UserUtils.authAdmin1;
-import static com.genfood.foodgenback.utils.UserUtils.signUp4;
 
 @Testcontainers
 @Slf4j
@@ -51,14 +52,6 @@ public class MealIT extends FacadeIT {
   @Autowired private UserDetailsServiceImpl userDetailsService;
   @Autowired JWTService jwtService;
   MockHttpServletRequest request;
-
-  @Autowired AllergyRepository allergyRepository;
-  @Autowired UserMapper userMapper;
-  @Autowired MealRepository mealRepository;
-  @Autowired UserRepository userRepository;
-
-  @Autowired IngredientRepository ingredientRepository;
-  @Autowired MailValidator mailValidator;
 
   @Test
   void read_meals() {

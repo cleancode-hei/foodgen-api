@@ -5,7 +5,6 @@ import com.genfood.foodgenback.endpoint.rest.model.Meal;
 import com.genfood.foodgenback.service.MealService;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

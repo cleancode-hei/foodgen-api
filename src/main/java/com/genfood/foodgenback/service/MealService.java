@@ -16,11 +16,11 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 public class MealService {
-
   private final MealRepository mealRepository;
   private final UserService userService;
   private final AllergyService allergyService;
   private final JDBCQueries jdbcQueries;
+  private final AuthService service;
 
   public Meal getMealById(String id) {
     return mealRepository.findById(id).get();

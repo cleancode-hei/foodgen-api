@@ -4,7 +4,6 @@ import com.genfood.foodgenback.endpoint.rest.mapper.MealMapper;
 import com.genfood.foodgenback.endpoint.rest.model.Meal;
 import com.genfood.foodgenback.service.MealService;
 import jakarta.servlet.http.HttpServletRequest;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor

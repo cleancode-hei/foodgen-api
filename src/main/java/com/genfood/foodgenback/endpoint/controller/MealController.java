@@ -4,9 +4,13 @@ import com.genfood.foodgenback.endpoint.rest.mapper.MealMapper;
 import com.genfood.foodgenback.endpoint.rest.model.Meal;
 import com.genfood.foodgenback.service.MealService;
 import jakarta.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,11 +28,6 @@ public class MealController {
   @GetMapping("/meals")
   public List<Meal> getMeals(HttpServletRequest request) {
     return mealService.getRandomMeals(request).stream().map(mealMapper::toDto).toList();
-  }
-
-  @PutMapping("/meals/download/{id}")
-  public void downloadMeal(@PathVariable String id) {
-    mealService.updateMealDownloadNumber(id);
   }
 
   @GetMapping("/recommendedMeals")
@@ -51,6 +50,18 @@ public class MealController {
             .map(mealMapper::toDto)
             .collect(Collectors.toUnmodifiableList());
     return meals;
+  }
+
+  @PutMapping("/meals/download/{id}")
+  public ResponseEntity<byte[]> downloadMeal(@PathVariable String id) throws IOException {
+    byte[] pdfBytes = mealService.generatePDF(id);
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.APPLICATION_PDF);
+    headers.setContentDispositionFormData(
+        "attachment", mealService.getMealById(id).getName() + ".pdf");
+    headers.setContentLength(pdfBytes.length);
+    mealService.updateMealDownloadNumber(id);
+    return ResponseEntity.ok().headers(headers).body(pdfBytes);
   }
 
   @GetMapping("/mealsByRating")

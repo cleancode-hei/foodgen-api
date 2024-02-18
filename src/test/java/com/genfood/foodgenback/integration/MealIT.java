@@ -22,6 +22,7 @@ import com.genfood.foodgenback.service.JWTService;
 import com.genfood.foodgenback.service.MealService;
 import com.genfood.foodgenback.service.UserDetailsServiceImpl;
 import com.genfood.foodgenback.utils.IngredientUtils;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
@@ -114,7 +115,7 @@ public class MealIT extends FacadeIT {
   }
 
   @Test
-  void updated_meal_download_number() {
+  void updated_meal_download_number() throws IOException {
     mealController.downloadMeal(MEAL1_ID);
     Meal meal = mealController.getMealById(MEAL1_ID);
     Assertions.assertEquals(updatedDownloadMeal1(), meal);

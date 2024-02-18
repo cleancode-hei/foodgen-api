@@ -64,6 +64,8 @@ public class SecurityConf {
                     .hasAnyRole(String.valueOf(Role.ADMIN))
                     .requestMatchers(GET, "/meals/**")
                     .authenticated()
+                    .requestMatchers(PUT, "/meals/download/{id}")
+                    .authenticated()
                     .requestMatchers(PUT, "/meals/**")
                     .hasAnyRole(String.valueOf(Role.ADMIN))
                     .requestMatchers(GET, "/allergy")

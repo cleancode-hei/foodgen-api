@@ -3,6 +3,7 @@ package com.genfood.foodgenback.endpoint.controller;
 import com.genfood.foodgenback.endpoint.rest.mapper.RegionMapper;
 import com.genfood.foodgenback.endpoint.rest.model.Region;
 import com.genfood.foodgenback.service.RegionService;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
@@ -41,11 +42,12 @@ public class RegionController {
   }
 
   @PutMapping
-  public List<Region> crupdateRegions(@RequestBody List<Region> regions) {
+  public List<Region> crupdateRegions(
+      HttpServletRequest request, @RequestBody List<Region> regions) {
     List<com.genfood.foodgenback.repository.model.Region> toSave =
         regions.stream().map(mapper::toEntity).collect(Collectors.toUnmodifiableList());
     List<Region> crupdated =
-        service.crupdateRegions(toSave).stream()
+        service.crupdateRegions(request, toSave).stream()
             .map(mapper::toDto)
             .collect(Collectors.toUnmodifiableList());
     return crupdated;

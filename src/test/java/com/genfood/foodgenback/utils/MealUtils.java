@@ -1,7 +1,5 @@
 package com.genfood.foodgenback.utils;
 
-import com.genfood.foodgenback.endpoint.rest.model.Meal;
-
 import static com.genfood.foodgenback.utils.RecipeUtils.recipe1;
 import static com.genfood.foodgenback.utils.RecipeUtils.recipe2;
 import static com.genfood.foodgenback.utils.RecipeUtils.recipe3;
@@ -14,6 +12,8 @@ import static com.genfood.foodgenback.utils.RecipeUtils.recipe9;
 import static com.genfood.foodgenback.utils.RegionUtils.region1;
 import static com.genfood.foodgenback.utils.RegionUtils.region2;
 import static com.genfood.foodgenback.utils.RegionUtils.region3;
+
+import com.genfood.foodgenback.endpoint.rest.model.Meal;
 
 public class MealUtils {
 

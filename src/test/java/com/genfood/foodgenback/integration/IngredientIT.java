@@ -9,6 +9,9 @@ import static com.genfood.foodgenback.utils.IngredientUtils.updatedIg3;
 import com.genfood.foodgenback.conf.FacadeIT;
 import com.genfood.foodgenback.endpoint.controller.IngredientController;
 import com.genfood.foodgenback.endpoint.rest.model.Ingredient;
+import com.genfood.foodgenback.repository.model.exception.ApiException;
+import com.genfood.foodgenback.repository.model.exception.BadRequestException;
+import com.genfood.foodgenback.repository.model.exception.NotFoundException;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -39,10 +42,32 @@ public class IngredientIT extends FacadeIT {
   }
 
   @Test
+  void should_throw_error_not_found() {
+    String id = "fakeig";
+    NotFoundException exception =
+        Assertions.assertThrows(
+            NotFoundException.class, () -> ingredientController.getIngredientById(id));
+    Assertions.assertEquals("Ingredient of id: " + id + " not found.", exception.getMessage());
+    Assertions.assertEquals(ApiException.ExceptionType.CLIENT_EXCEPTION, exception.getType());
+  }
+
+  @Test
   void crupdate_ingredients() {
     ingredientController.crupdateIngredients(List.of(ig1(), ig2(), ig3()));
     ingredientController.crupdateIngredients(List.of(updatedIg3()));
     List<Ingredient> actual = ingredientController.getIngredients(PAGE, PAGE_SIZE);
     Assertions.assertEquals(updatedIg3(), actual.get(2));
+  }
+
+  @Test
+  void should_pass_validator() {
+    BadRequestException exception =
+        Assertions.assertThrows(
+            BadRequestException.class,
+            () ->
+                ingredientController.crupdateIngredients(
+                    List.of(Ingredient.builder().name(null).build())));
+    Assertions.assertEquals("Name is mandatory", exception.getMessage());
+    Assertions.assertEquals(ApiException.ExceptionType.CLIENT_EXCEPTION, exception.getType());
   }
 }

@@ -9,6 +9,8 @@ import com.genfood.foodgenback.conf.FacadeIT;
 import com.genfood.foodgenback.endpoint.controller.AllergyController;
 import com.genfood.foodgenback.endpoint.controller.UserController;
 import com.genfood.foodgenback.endpoint.rest.model.Allergy;
+import com.genfood.foodgenback.repository.model.exception.ApiException;
+import com.genfood.foodgenback.repository.model.exception.NotFoundException;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -39,6 +41,16 @@ public class AllergyIT extends FacadeIT {
     List<Allergy> actual = allergyController.findAllergyByUserId(USER1_ID);
     List<Allergy> expected = List.of(allergy1());
     Assertions.assertEquals(expected, actual);
+  }
+
+  @Test
+  void should_throw_not_found() {
+    String id = "fakeuser";
+    NotFoundException exception =
+        Assertions.assertThrows(
+            NotFoundException.class, () -> allergyController.findAllergyByUserId(id));
+    Assertions.assertEquals("User of id: " + id + " does not exists", exception.getMessage());
+    Assertions.assertEquals(ApiException.ExceptionType.CLIENT_EXCEPTION, exception.getType());
   }
 
   @Test

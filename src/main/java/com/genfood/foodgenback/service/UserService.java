@@ -43,7 +43,9 @@ public class UserService {
   private final int BEARER_PREFIX_COUNT = 7;
 
   public User getUserByUsername(String userName) {
-    return repository.findByUsername(userName).orElseThrow(() -> new NotFoundException("User name with "+userName+" not found"));
+    return repository
+        .findByUsername(userName)
+        .orElseThrow(() -> new NotFoundException("User name with " + userName + " not found"));
   }
 
   public List<User> crupdateUsers(List<User> toCrupdate) {

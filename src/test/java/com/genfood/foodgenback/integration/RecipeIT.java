@@ -1,5 +1,6 @@
 package com.genfood.foodgenback.integration;
 
+import static com.genfood.foodgenback.repository.model.exception.ApiException.ExceptionType.CLIENT_EXCEPTION;
 import static com.genfood.foodgenback.utils.RecipeUtils.RECIPE1_ID;
 import static com.genfood.foodgenback.utils.RecipeUtils.recipe1;
 import static com.genfood.foodgenback.utils.RecipeUtils.recipe2;
@@ -10,6 +11,8 @@ import com.genfood.foodgenback.conf.FacadeIT;
 import com.genfood.foodgenback.endpoint.controller.RecipeController;
 import com.genfood.foodgenback.endpoint.rest.model.Recipe;
 import com.genfood.foodgenback.endpoint.rest.model.RecipeIngredients;
+import com.genfood.foodgenback.repository.model.exception.BadRequestException;
+import com.genfood.foodgenback.repository.model.exception.NotFoundException;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -40,9 +43,38 @@ public class RecipeIT extends FacadeIT {
   }
 
   @Test
+  void should_throw_not_found() {
+    String id = "fakerecipe";
+    NotFoundException exception =
+        Assertions.assertThrows(NotFoundException.class, () -> controller.getRecipeById(id));
+    Assertions.assertEquals("Recipe with id: " + id + " not found", exception.getMessage());
+    Assertions.assertEquals(CLIENT_EXCEPTION, exception.getType());
+  }
+
+  @Test
   void crupdate_recipes() {
     controller.crupdateRecipes(List.of(updatedRecipe3()));
     List<Recipe> actual = controller.getRecipes(PAGE, PAGE_SIZE);
     Assertions.assertTrue(actual.contains(updatedRecipe3()));
+  }
+
+  @Test
+  void should_pass_validator() {
+    BadRequestException exception =
+        Assertions.assertThrows(
+            BadRequestException.class,
+            () ->
+                controller.crupdateRecipes(
+                    List.of(Recipe.builder().name(null).readme(null).build())));
+    BadRequestException exception2 =
+        Assertions.assertThrows(
+            BadRequestException.class,
+            () ->
+                controller.crupdateRecipes(
+                    List.of(Recipe.builder().name("recipe1_name").readme("readme").build())));
+    Assertions.assertEquals("Readme is mandatory\nName is mandatory", exception.getMessage());
+    Assertions.assertEquals(CLIENT_EXCEPTION, exception.getType());
+    Assertions.assertEquals("This recipe already exists.", exception2.getMessage());
+    Assertions.assertEquals(CLIENT_EXCEPTION, exception2.getType());
   }
 }

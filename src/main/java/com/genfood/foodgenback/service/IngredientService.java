@@ -31,10 +31,6 @@ public class IngredientService {
     return ingredientRepository.findByName(name);
   }
 
-  public List<Ingredient> getAllIngredientByName(List<String> names) {
-    return ingredientRepository.findIngredientsByNameIn(names);
-  }
-
   public List<Ingredient> saveIngredients(List<Ingredient> ingredientsList) {
     ingredientValidator.accept(ingredientsList);
     return ingredientRepository.saveAll(ingredientsList);

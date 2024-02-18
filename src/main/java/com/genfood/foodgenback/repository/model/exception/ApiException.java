@@ -9,6 +9,7 @@ public class ApiException extends RuntimeException {
     super(message);
     this.type = type;
   }
+
   public enum ExceptionType {
     CLIENT_EXCEPTION,
     SERVER_EXCEPTION

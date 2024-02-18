@@ -5,13 +5,12 @@ import com.genfood.foodgenback.repository.MealRepository;
 import com.genfood.foodgenback.repository.model.Meal;
 import com.genfood.foodgenback.repository.model.User;
 import jakarta.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor

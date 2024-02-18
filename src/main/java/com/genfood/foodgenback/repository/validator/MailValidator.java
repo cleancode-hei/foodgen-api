@@ -23,7 +23,7 @@ public class MailValidator implements Consumer<User> {
   @Override
   public void accept(User user) {
     boolean alreadyExist = false;
-    if(userRepository.existsByEmail(user.getEmail())
+    if (userRepository.existsByEmail(user.getEmail())
         && user.getId().compareTo(userRepository.findByEmail(user.getEmail()).get().getId()) == 1) {
       alreadyExist = true;
     }

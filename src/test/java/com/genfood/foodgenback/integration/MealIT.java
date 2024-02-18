@@ -1,25 +1,5 @@
 package com.genfood.foodgenback.integration;
 
-import com.genfood.foodgenback.conf.FacadeIT;
-import com.genfood.foodgenback.endpoint.controller.MealController;
-import com.genfood.foodgenback.endpoint.controller.UserController;
-import com.genfood.foodgenback.endpoint.rest.mapper.MealMapper;
-import com.genfood.foodgenback.endpoint.rest.model.Meal;
-import com.genfood.foodgenback.service.JWTService;
-import com.genfood.foodgenback.service.MealService;
-import com.genfood.foodgenback.service.UserDetailsServiceImpl;
-import com.genfood.foodgenback.utils.IngredientUtils;
-import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.testcontainers.junit.jupiter.Testcontainers;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
 import static com.genfood.foodgenback.utils.MealUtils.MEAL1_ID;
 import static com.genfood.foodgenback.utils.MealUtils.meal1;
 import static com.genfood.foodgenback.utils.MealUtils.meal6;
@@ -32,6 +12,25 @@ import static com.genfood.foodgenback.utils.UserUtils.auth1;
 import static com.genfood.foodgenback.utils.UserUtils.auth2;
 import static com.genfood.foodgenback.utils.UserUtils.authAdmin1;
 import static com.genfood.foodgenback.utils.UserUtils.signUp4;
+
+import com.genfood.foodgenback.conf.FacadeIT;
+import com.genfood.foodgenback.endpoint.controller.MealController;
+import com.genfood.foodgenback.endpoint.controller.UserController;
+import com.genfood.foodgenback.endpoint.rest.mapper.MealMapper;
+import com.genfood.foodgenback.endpoint.rest.model.Meal;
+import com.genfood.foodgenback.service.JWTService;
+import com.genfood.foodgenback.service.MealService;
+import com.genfood.foodgenback.service.UserDetailsServiceImpl;
+import com.genfood.foodgenback.utils.IngredientUtils;
+import java.util.List;
+import java.util.stream.Collectors;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 @Testcontainers
 @Slf4j

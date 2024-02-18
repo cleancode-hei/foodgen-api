@@ -25,7 +25,7 @@ public class IngredientValidator implements Consumer<Ingredient> {
     }
     if (!violationMessages.isEmpty()) {
       String formattedViolationMessages =
-          violationMessages.stream().map(String::toString).collect(Collectors.joining(""));
+          violationMessages.stream().map(String::toString).collect(Collectors.joining("\n"));
       throw new BadRequestException(formattedViolationMessages);
     }
   }
